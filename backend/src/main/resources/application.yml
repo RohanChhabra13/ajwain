@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8080}
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:workplatform}}
+    username: ${DB_USER:workplatform}
+    password: ${DB_PASSWORD:workplatform}
+  jpa:
+    hibernate:
+      ddl-auto: update   # MVP convenience; switch to Flyway migrations before production
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 50
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 12MB
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-change-me-1234}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:1440}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+  storage:
+    dir: ${STORAGE_DIR:./data/uploads}
+  invitations:
+    expiry-days: 14
+  reminders:
+    cron: "0 0 7 * * *"
